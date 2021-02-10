@@ -4,6 +4,7 @@ const MessageSchema = new mongoose.Schema({
   chatRoom_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
+    index: true,
     ref: 'ChatRoom',
   },
   user_id: {

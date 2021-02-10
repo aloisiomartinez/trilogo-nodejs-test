@@ -49,8 +49,9 @@ io.on('connection', (socket) => {
 
   socket.on('chatroomMessage', async ({ chatroomId, message }) => {
     if (message.trim().length > 0) {
-      const user = await User.findOne({ id: socket.userId });
-      const messageSave = new Message({ chatroom: chatroomId, user: socket.userId, message });
+      const user = await User.findOne({ _id: socket.userId });
+      console.log('chatroommm', chatroomId);
+      const messageSave = new Message({ chatRoom_id: chatroomId, user_id: socket.userId, message });
 
       io.to(chatroomId).emit('newMessage', {
         message,
@@ -58,7 +59,7 @@ io.on('connection', (socket) => {
         userId: socket.userId,
       });
 
-      await message.save();
+      await messageSave.save();
     }
   });
 });
