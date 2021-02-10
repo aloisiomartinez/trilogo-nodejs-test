@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../../models/User');
 
-// class UserController {
 // Register new User
 exports.store = async (req, res) => {
   const { name, email, password } = req.body;
