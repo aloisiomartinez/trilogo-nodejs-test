@@ -6,6 +6,7 @@ const app = express();
 const userRoutes = require('./routes/user.routes');
 const chatRoomRoutes = require('./routes/chatroom.routes');
 const messageRoutes = require('./routes/message.routes');
+const sessionRoutes = require('./routes/session.routes');
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/user', userRoutes);
+app.use('/session', sessionRoutes);
 app.use('/chatRoom', chatRoomRoutes);
 app.use('/messages', messageRoutes);
 

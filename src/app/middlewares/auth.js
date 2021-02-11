@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
 
   try {
     const payload = await jwt.verify(token, authConfig.secret);
-    console.log('PAYLOAD', payload);
+
     req.payload = payload.id;
 
     return next();

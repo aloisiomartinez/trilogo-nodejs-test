@@ -12,6 +12,9 @@ module.exports = {
   },
   rules: {
     'class-methods-use-this': 'off',
+    'no-param-reassign': 'off',
+    'import/order': 'off',
+    'no-console': 'off',
     'consistent-return': 'off',
     camelcase: 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],

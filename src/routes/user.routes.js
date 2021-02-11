@@ -5,9 +5,16 @@ const authMiddlaware = require('../app/middlewares/auth');
 
 const routes = Router();
 
-routes.post('/register', UserController.store);
+routes.post('/', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddlaware);
+
+routes.get('/', UserController.find);
+routes.get('/:email', UserController.findByEmail);
+
+// routes.put('/', UserController.update);
+
+// routes.delete('/:email', UserController.delete);
 
 module.exports = routes;

@@ -5,7 +5,8 @@ const authMiddlaware = require('../app/middlewares/auth');
 
 const routes = Router();
 
+routes.use(authMiddlaware);
+
 routes.get('/:id', MessageController.getMessageByRoom);
-routes.get('/', MessageController.test);
 
 module.exports = routes;

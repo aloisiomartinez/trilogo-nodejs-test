@@ -4,12 +4,15 @@ require('./database/connection');
 const jwt = require('jsonwebtoken');
 const app = require('./app');
 const authConfig = require('./config/auth');
+
 const Message = require('./models/Message');
 const User = require('./models/User');
 
 const PORT = 3333 || process.env.PORT;
 
 const server = app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Socket IO
 
 const io = require('socket.io')(server, {
   cors: {
@@ -22,11 +25,11 @@ io.use(async (socket, next) => {
     const { token } = socket.handshake.query;
 
     const payload = await jwt.verify(token, authConfig.secret);
-    // eslint-disable-next-line no-param-reassign
+
     socket.userId = payload.id;
     next();
   } catch (err) {
-    console.log('ERR', err);
+    console.log('Error: ', err);
   }
 });
 
@@ -50,8 +53,8 @@ io.on('connection', (socket) => {
   socket.on('chatroomMessage', async ({ chatroomId, message }) => {
     if (message.trim().length > 0) {
       const user = await User.findOne({ _id: socket.userId });
-      console.log('chatroommm', chatroomId);
-      const messageSave = new Message({ chatRoom_id: chatroomId, user_id: socket.userId, message });
+
+      const messageSave = new Message({ chatRoom: chatroomId, user: socket.userId, message });
 
       io.to(chatroomId).emit('newMessage', {
         message,
