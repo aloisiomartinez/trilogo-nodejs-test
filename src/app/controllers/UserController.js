@@ -27,6 +27,18 @@ exports.store = async (req, res) => {
   });
 };
 
+exports.delete = async (req, res) => {
+  const userId = req.params.id;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({ error: 'User does not exist.' });
+  }
+
+  return res.status(200).json({ message: 'User deleted.' });
+};
+
 exports.find = async (req, res) => {
   const users = await User.find();
 

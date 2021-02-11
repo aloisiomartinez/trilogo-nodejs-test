@@ -11,4 +11,6 @@ routes.use(authMiddlaware);
 routes.get('/', UserController.find);
 routes.get('/:email', UserController.findByEmail);
 
+routes.delete('/:id', UserController.delete);
+
 module.exports = routes;

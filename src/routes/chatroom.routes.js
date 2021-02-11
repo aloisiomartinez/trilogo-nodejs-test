@@ -7,9 +7,8 @@ const routes = Router();
 
 routes.use(authMiddlaware);
 
+routes.post('/', ChatRoomController.store);
 routes.get('/', ChatRoomController.getAllChatrooms);
 routes.get('/users/:id', ChatRoomController.getUsersFromChatRoom);
-
-routes.post('/', ChatRoomController.store);
 
 module.exports = routes;

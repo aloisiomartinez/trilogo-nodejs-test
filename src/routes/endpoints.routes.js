@@ -11,6 +11,10 @@ endPoints.get('/', (req, res) => {
         description: 'Create a new USER.',
       },
       {
+        route: '[DELETE] /user/:id',
+        description: 'Delete a user by Id.',
+      },
+      {
         route: '[GET] /user',
         description: 'List all Users.',
       },

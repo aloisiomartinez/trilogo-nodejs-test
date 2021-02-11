@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const ChatRoom = require('../../models/ChatRoom');
 
 exports.store = async (req, res) => {
-  const { description, permaLink } = req.body;
+  const { description, permaLink, userId } = req.body;
 
   if (!description) {
     return res.json({ message: 'Description is required.' });
@@ -12,6 +12,7 @@ exports.store = async (req, res) => {
     ticket_id: uuidv4(),
     description,
     permaLink,
+    user: userId,
   });
 
   await chatRoom.save();
@@ -33,10 +34,12 @@ exports.getAllChatrooms = async (req, res) => {
 };
 
 exports.getUsersFromChatRoom = async (req, res) => {
-  const usersByChatRoom = await ChatRoom.find();
+  const userId = req.params.id;
+
+  const usersByChatRoom = await ChatRoom.findOne({ user: userId }).populate('User');
 
   if (!usersByChatRoom) {
-    return res.status(404).json({ error: 'There is no Chat Room created.' });
+    return res.status(404).json({ error: 'User not found in a Chat Room.' });
   }
 
   return res.status(200).json(usersByChatRoom);
